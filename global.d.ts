@@ -1,6 +1,8 @@
 declare global {
   type UnknownObject = Record<string, unknown>;
 
+  type EmptyObject = {};
+
   type Func<T extends unknown[], R> = (...a: T) => R;
 
   type ExtendIfNotNever<T, U> = [U] extends [never] ? T : T & U;
