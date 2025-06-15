@@ -3,7 +3,7 @@ import type { Action } from './types/Action';
 import type { Reducer } from './types/Reducer';
 import type { Store } from './types/Store';
 import type { Enhancer } from './types/Enhancer';
-import createStore from '.';
+import createStore from './createStore';
 
 describe('createStore', () => {
   it('should initialize state using reducer', () => {
@@ -15,7 +15,7 @@ describe('createStore', () => {
       }
     };
 
-    const store = createStore(reducer);
+    const store: Store<State> = createStore(reducer);
     expect(store.getState()).toEqual({ count: 0 });
   });
 
@@ -33,7 +33,7 @@ describe('createStore', () => {
       }
     };
 
-    const store = createStore(reducer);
+    const store: Store<State, IncrementAction> = createStore(reducer);
     const action: IncrementAction = { type: INCREMENT };
     const returned = store.dispatch(action);
 
@@ -61,9 +61,33 @@ describe('createStore', () => {
     expect(listener).toHaveBeenCalledTimes(2);
 
     unsubscribe();
-
     store.dispatch({ type: ADD });
     expect(listener).toHaveBeenCalledTimes(2);
+  });
+
+  it('unsubscribe should remove the correct listener', () => {
+    const ADD = 'ADD' as const;
+    type AddAction = Action<typeof ADD>;
+
+    const reducer: Reducer<number, AddAction> = (state = 0, action) =>
+      action.type === ADD ? state + 1 : state;
+
+    const store: Store<number, AddAction> = createStore(reducer);
+
+    const listenerA = mock(() => {});
+    const listenerB = mock(() => {});
+
+    const unsubscribeA = store.subscribe(listenerA);
+    store.subscribe(listenerB);
+
+    store.dispatch({ type: ADD });
+    expect(listenerA).toHaveBeenCalledTimes(1);
+    expect(listenerB).toHaveBeenCalledTimes(1);
+
+    unsubscribeA();
+    store.dispatch({ type: ADD });
+    expect(listenerA).toHaveBeenCalledTimes(1);
+    expect(listenerB).toHaveBeenCalledTimes(2);
   });
 
   it('should support enhancers', () => {

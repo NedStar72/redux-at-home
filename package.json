@@ -1,6 +1,5 @@
 {
   "name": "redux-at-home",
-  "module": "index.ts",
   "type": "module",
   "scripts": {
     "type-check": "tsc --noEmit",
