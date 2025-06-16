@@ -1,4 +1,4 @@
-import { describe, it, expect, mock } from 'bun:test';
+import { describe, it, expect } from 'bun:test';
 import { createStore, type Reducer } from '../createStore';
 import combineReducers from './combineReducers';
 
@@ -15,7 +15,7 @@ const reducerB: Reducer<string, { type: 'actionB' }> = (state = '', action) => {
   return state + '-';
 };
 
-const reducerС: Reducer<{ c: boolean }, { type: 'actionC' }> = (state = { c: true }, action) => {
+const reducerС: Reducer<{ c: boolean }, { type: 'actionC' }> = (state = { c: true }, _) => {
   return state;
 };
 
