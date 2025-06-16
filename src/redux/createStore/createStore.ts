@@ -12,8 +12,8 @@ export const InternalActionType = {
 const createStore = <
   S,
   A extends Action,
-  StoreExt extends UnknownObject = UnknownObject,
-  StateExt extends UnknownObject = UnknownObject,
+  StoreExt extends UnknownObject = EmptyObject,
+  StateExt extends UnknownObject = EmptyObject,
 >(
   reducer: Reducer<S, A>,
   enhancer?: Enhancer<StoreExt, StateExt>,

@@ -5,6 +5,12 @@ declare global {
 
   type Func<T extends unknown[], R> = (...a: T) => R;
 
+  type Expand<T> = T extends unknown
+    ? T extends infer O
+      ? { [K in keyof O]: O[K] }
+      : never
+    : never;
+
   type ExtendIfNotNever<T, U> = [U] extends [never] ? T : T & U;
 
   type MergeObjects<T, U> = {
