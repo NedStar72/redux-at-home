@@ -9,7 +9,7 @@ export const InternalActionType = {
   Initial: `@@redux/INIT${randomString()}`,
 };
 
-const createStore = <
+export default function createStore<
   S,
   A extends Action,
   StoreExt extends UnknownObject = EmptyObject,
@@ -17,7 +17,7 @@ const createStore = <
 >(
   reducer: Reducer<S, A>,
   enhancer?: Enhancer<StoreExt, StateExt>,
-): Store<S & StateExt, A> & StoreExt => {
+): Store<S & StateExt, A> & StoreExt {
   if (enhancer) {
     return enhancer(createStore)(reducer);
   }
@@ -60,6 +60,4 @@ const createStore = <
     getState,
     subscribe,
   } as Store<S & StateExt, A> & StoreExt;
-};
-
-export default createStore;
+}

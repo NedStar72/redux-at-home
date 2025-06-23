@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'bun:test';
 import { createStore, type Reducer } from '../createStore';
-import combineReducers from './combineReducers';
+import combineReducers from './index';
 
 const reducerA: Reducer<number, { type: 'actionA' }> = (state = 0, action) => {
   if (action.type != 'actionA') {
