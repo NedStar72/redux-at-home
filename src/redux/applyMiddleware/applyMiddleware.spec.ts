@@ -25,7 +25,7 @@ const reducer: Reducer<number, Action> = (state = 0, action) => {
 };
 
 describe('applyMiddleware', () => {
-  it('returns a store enhancer when no middleware provided', () => {
+  it('должен возвращать store enhancer, если не предоставлено middleware', () => {
     const enhancer = applyMiddleware();
     const store = enhancer(createStore)(reducer);
 
@@ -34,7 +34,7 @@ describe('applyMiddleware', () => {
     expect(store.getState()).toBe(1);
   });
 
-  it('applies a single middleware to intercept dispatch', () => {
+  it('должен применять middleware для перехвата dispatch', () => {
     const changelog: Array<{ before: number; action: Action } | { after: number }> = [];
 
     const middleware: Middleware<number, Dispatch<Action>> =
@@ -53,7 +53,7 @@ describe('applyMiddleware', () => {
     expect(changelog).toEqual([{ before: 0, action: { type: 'ADD', payload: 5 } }, { after: 5 }]);
   });
 
-  it('composes multiple middleware in correct order', () => {
+  it('должен композировать несколько middleware в правильном порядке', () => {
     const history: string[] = [];
 
     const mw1: Middleware<number, Dispatch<Action>> = () => next => action => {
@@ -79,7 +79,7 @@ describe('applyMiddleware', () => {
     expect(store.getState()).toBe(1);
   });
 
-  it('prevents dispatch during middleware construction', () => {
+  it('должен предотвращать dispatch во время конструирования middleware', () => {
     const faultyMw: Middleware<number, Dispatch<Action>> = api => {
       expect(() => api.dispatch({ type: 'INC' })).toThrow(
         'Dispatching while constructing your middleware is not allowed',

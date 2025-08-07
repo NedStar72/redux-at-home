@@ -20,7 +20,7 @@ const reducerС: Reducer<{ c: boolean }, { type: 'actionC' }> = (state = { c: tr
 };
 
 describe('combineReducers', () => {
-  it('should correctly update the corresponding states', () => {
+  it('должен правильно обновлять соответствующие состояния', () => {
     const combinedReducer = combineReducers({
       a: reducerA,
       b: reducerB,
@@ -39,7 +39,7 @@ describe('combineReducers', () => {
     expect(store.getState().b).toBe('-');
   });
 
-  it('should not modify the state when there are no changes', () => {
+  it('должен не изменять состояние, когда нет изменений', () => {
     const combinedReducer = combineReducers({
       c: reducerС,
     });

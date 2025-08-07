@@ -6,7 +6,7 @@ import type { Enhancer } from './types/Enhancer';
 import createStore from './createStore';
 
 describe('createStore', () => {
-  it('should initialize state using reducer', () => {
+  it('должен инициализировать состояние, используя reducer', () => {
     type State = { count: number };
     const reducer: Reducer<State> = (state = { count: 0 }, action) => {
       switch (action.type) {
@@ -19,7 +19,7 @@ describe('createStore', () => {
     expect(store.getState()).toEqual({ count: 0 });
   });
 
-  it('dispatch should update state and return the action', () => {
+  it('dispatch должен обновлять состояние и возвращать action', () => {
     type State = { count: number };
     const INCREMENT = 'INCREMENT' as const;
     type IncrementAction = Action<typeof INCREMENT>;
@@ -41,7 +41,7 @@ describe('createStore', () => {
     expect(store.getState()).toEqual({ count: 1 });
   });
 
-  it('subscribe should register listener and unsubscribe should remove it', () => {
+  it('subscribe должен регистрировать слушателя, а unsubscribe должен удалять его', () => {
     const ADD = 'ADD' as const;
     type AddAction = Action<typeof ADD>;
 
@@ -65,7 +65,7 @@ describe('createStore', () => {
     expect(listener).toHaveBeenCalledTimes(2);
   });
 
-  it('unsubscribe should remove the correct listener', () => {
+  it('unsubscribe должен удалять правильного слушателя', () => {
     const ADD = 'ADD' as const;
     type AddAction = Action<typeof ADD>;
 
@@ -90,7 +90,7 @@ describe('createStore', () => {
     expect(listenerB).toHaveBeenCalledTimes(2);
   });
 
-  it('should support enhancers', () => {
+  it('должен поддерживать enhancers', () => {
     type StoreExt = { enhanced: boolean };
     type StateExt = { extraField: string };
     const enhancer: Enhancer<StoreExt, StateExt> = next => reducer => {
@@ -113,7 +113,7 @@ describe('createStore', () => {
     expect(store.getState()).toEqual({ initial: true, extraField: 'someExtraValue' });
   });
 
-  it('should catch errors in reducer and not notify listeners', () => {
+  it('должен перехватывать ошибки в редьюсере', () => {
     const ERROR = 'ERROR' as const;
     type ErrorAction = Action<typeof ERROR>;
 

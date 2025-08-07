@@ -4,7 +4,7 @@ import type { ThunkAction } from './types';
 import createThunkMiddleware from './createThunkMiddleware';
 
 describe('ThunkMiddleware', () => {
-  it('should run the given action function with dispatch and getState', () => {
+  it('должен передавать в action-функцию dispatch и getState', () => {
     const api = {
       dispatch: mock(),
       getState: mock(),
@@ -18,7 +18,7 @@ describe('ThunkMiddleware', () => {
     createThunkMiddleware()(api)(next)(thunkAction);
   });
 
-  it('should pass action to next if not a function', () => {
+  it('должен пропускать action, если это не функция', () => {
     const api = {
       dispatch: mock(),
       getState: mock(),
@@ -32,7 +32,7 @@ describe('ThunkMiddleware', () => {
     expect(next).toHaveBeenNthCalledWith(1, action);
   });
 
-  it('should return the return value of next if not a function', () => {
+  it('должен возвращать значение из next, если action это не функция', () => {
     const api = {
       dispatch: mock(),
       getState: mock(),
@@ -45,7 +45,7 @@ describe('ThunkMiddleware', () => {
     expect(result).toBe(action);
   });
 
-  it('should return value as expected if a function', () => {
+  it('должен возвращать значение из action-функции', () => {
     const api = {
       dispatch: mock(),
       getState: mock(),
@@ -59,7 +59,7 @@ describe('ThunkMiddleware', () => {
     expect(result).toBe('result');
   });
 
-  it('should be invoked synchronously if a function', () => {
+  it('должен вызывать action-функцию синхронно', () => {
     let mutated = 0;
 
     const api = {
@@ -75,7 +75,7 @@ describe('ThunkMiddleware', () => {
     expect(mutated).toBe(1);
   });
 
-  it('should pass the extra argument', () => {
+  it('должен передавать extra аргумент в action-функцию', () => {
     const extra = { lol: true };
     const api = {
       dispatch: mock(),

@@ -6,40 +6,40 @@ const increment = (x: number): number => x + 1;
 const toString = (x: number): string => `#${x}`;
 
 describe('compose', () => {
-  it('returns identity when no functions provided', () => {
+  it('должен возвращать тождественную функцию, когда не предоставлено функций', () => {
     const fn = compose();
     expect(fn(5)).toBe(5);
     expect(fn('test')).toBe('test');
   });
 
-  it('returns the same function when one function is provided', () => {
+  it('должен возвращать ту же функцию, когда предоставлена одна функция', () => {
     const fn = compose(double);
     expect(fn).toBe(double);
     expect(fn(4)).toBe(8);
   });
 
-  it('composes two functions correctly', () => {
+  it('должен правильно композировать две функции', () => {
     const fn = compose(double, increment);
     expect(fn(3)).toBe(8);
   });
 
-  it('handles functions with different return types', () => {
+  it('должен обрабатывать функции с разными типами возвращаемых значений', () => {
     const fn = compose(toString, increment);
     expect(fn(7)).toBe('#8');
   });
 
-  it('composes three functions correctly', () => {
+  it('должен правильно композировать три функции', () => {
     const fn = compose(toString, double, increment);
     expect(fn(2)).toBe('#6');
   });
 
-  it('supports variadic arguments on the innermost function', () => {
+  it('должен поддерживать различное количество аргументов для самой внутренней функции', () => {
     const sum = (a: number, b: number, c: number): number => a + b + c;
     const fn = compose(double, sum);
     expect(fn(1, 2, 3)).toBe(12);
   });
 
-  it('composes a long chain of functions', () => {
+  it('должен композировать длинную цепочку функций', () => {
     const fn = compose(
       (s: string) => s.length,
       toString,
